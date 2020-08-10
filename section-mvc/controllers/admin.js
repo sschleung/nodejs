@@ -20,8 +20,11 @@ exports.postAddProductPage = (req, res, next) => {
           req.body.imageUrl,
           req.body.description,
           req.body.price);
-        product.save();
-        res.redirect('/');
+          product.save()
+          .then(()=>{
+            res.redirect('/');
+          })
+        .catch(err=>{console.log(err)});
 };
 
 
@@ -32,28 +35,33 @@ exports.getEditProductPage = (req, res, next) => {
   return res.redirect('/');
 
   const prodId = req.params.productId;
-  Product.findById(prodId,(product)=>{
-    if(!product){
+  Product.findById(prodId)
+  .then(([rows,fieldData])=>{
+    if(!rows[0]){
       return res.redirect('/');
     }
     res.render('admin/edit-product',{
     pageTitle:'Edit Product',
     path:'/admin/edit-product',
     editing:editMode,
-    product:product
+    product: rows[0]
     });
-  });
+  })
+  .catch(err=>{console.log(err)});
+  
 };
     
 exports.getProducts = (req, res, next) => {
-        Product.fetchAll(products =>{
+        Product.fetchAll()
+        .then(([rows,fieldData])=>{
           res.render('admin/products',{
-            docProducts: products,
+            docProducts: rows,
             path: '/admin/products',
             pageTitle: 'Admin Products'
           });
-        });
-};
+        })
+        .catch(err=>{console.log(err)});     
+}
 
 exports.postEditProduct=(req,res,next)=>{
   const updatedProduct = new Product(
