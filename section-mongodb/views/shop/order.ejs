@@ -3,21 +3,17 @@
 <body>
   <%- include('../includes/nav.ejs') %>
   <main>
-    <% if (orders.length>0){%>
-        
-        <% orders.forEach(order=>{%>
-                <h1># <%=order.id%></h1>
-                    <ul>
-                    <% order.products.forEach(item=>{%>
-                        <li><%=item.title%>  (<%=item.orderItem.quantity%>)</li>
-                            <% })%>
-                    </ul>
-    
-        
-            <%})%>
-     <%}else{%>
+    <% if (orders.length>0){%> <% orders.forEach(order=>{%>
+    <h1># <%=order._id%></h1>
+    <ul>
+      <% order.items.forEach(product=>{%>
+      <li><%=product.title%> (<%=product.quantity%>)</li>
+      <% })%>
+    </ul>
+
+    <%})%> <%}else{%>
     <h1>You haven't buy anythings...</h1>
     <%}%>
   </main>
   <%- include('../includes/end.ejs') %>
-
+</body>
