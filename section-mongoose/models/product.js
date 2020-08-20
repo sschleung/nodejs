@@ -13,6 +13,11 @@ const productSchema = new Schema({
   },
   description: { type: String, required: true },
   imageUrl: { type: String, required: true },
+  userId: {
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: "User",
+  },
 });
 
 module.exports = mongoose.model("Product", productSchema);

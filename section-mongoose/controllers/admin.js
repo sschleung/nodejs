@@ -18,6 +18,7 @@ exports.postAddProductPage = (req, res, next) => {
     price: price,
     description: description,
     imageUrl: imageUrl,
+    userId: req.user,
   });
   product
     .save()
@@ -54,6 +55,8 @@ exports.getEditProductPage = (req, res, next) => {
 
 exports.getProducts = (req, res, next) => {
   Product.find()
+    // .select("-_id")
+    // .populate("userId")
     .then((products) => {
       console.log(products);
       res.render("admin/products", {
@@ -68,22 +71,20 @@ exports.getProducts = (req, res, next) => {
 };
 
 exports.postEditProduct = (req, res, next) => {
-  const product = new Product(
-    req.body.title,
-    req.body.price,
-    req.body.description,
-    req.body.imageUrl,
-    new mongodb.ObjectId(req.body.productId)
-  );
-
-  product
-    .save()
+  Product.findById(req.body.productId)
+    .then((product) => {
+      product.title = req.body.title;
+      product.price = req.body.price;
+      product.description = req.body.description;
+      product.imageUrl = req.body.imageUrl;
+      return product.save();
+    })
     .then((result) => res.redirect("/admin/products"))
     .catch((err) => console.log(err));
 };
 
 exports.postDeleteProduct = (req, res, next) => {
-  Product.deleteById(req.body.productId)
+  Product.findByIdAndRemove(req.body.productId)
     .then(() => {
       console.log("Delete product");
       res.redirect("/admin/products");
