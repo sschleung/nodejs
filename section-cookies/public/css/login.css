@@ -1,0 +1,19 @@
+.login-form {
+  width: 20rem;
+  max-width: 90%;
+  margin: auto;
+  display: block;
+}
+
+.login-control label,
+.login-control input,
+.login-control textarea {
+  width: 20rem;
+  max-width: 95%;
+}
+.login-control input,
+.login-control textarea {
+  border: 1px solid #a1a1a1;
+  font: inherit;
+  border-radius: 2px;
+}
