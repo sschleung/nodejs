@@ -1,16 +1,34 @@
 <%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/order.css" />
 
 <body>
   <%- include('../includes/nav.ejs') %>
   <main>
     <% if (orders.length>0){%> <% orders.forEach(order=>{%>
-    <h1># <%=order._id%></h1>
-    <ul>
-      <% order.items.forEach(product=>{%>
-      <li><%=product.title%> (<%=product.quantity%>)</li>
-      <% })%>
-    </ul>
+    <div class="order_item-list">
+      <h1>Order Number: #<%=order._id%></h1>
+      <table>
+        <tr>
+          <th>Product Name</th>
+          <th>Quantity</th>
+          <th>Single Price</th>
+          <th>Total Price</th>
+        </tr>
+        <% order.products.forEach(p=>{%>
+        <br />
+        <tr>
+          <td><%=p.product.title%></td>
+          <td><%=p.quantity%></td>
+          <td>$ <%=p.product.price%></td>
+          <td>$ <%=p.product.price * p.quantity%></td>
+        </tr>
 
+        <% })%>
+      </table>
+
+      <hr />
+      <h2>Total Pirce :</h2>
+    </div>
     <%})%> <%}else{%>
     <h1>You haven't buy anythings...</h1>
     <%}%>
