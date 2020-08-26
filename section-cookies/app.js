@@ -48,22 +48,10 @@ app.use(errorController.get404);
 
 mongoose
   .connect(MONGODB_URI)
-  .then((result) => {
-    console.log("connent succsee!");
 
-    User.findOne()
-      .then((dbUser) => {
-        if (!dbUser) {
-          const user = new User({
-            name: "harry",
-            email: "testing@abc.com",
-            cart: { items: [] },
-          });
-          user.save();
-        }
-      })
-      .then((result) => {
-        app.listen(3000);
-      });
+  .then((result) => {
+    console.log('connected!');
+    app.listen(3000);
   })
+
   .catch((err) => console.log(err));

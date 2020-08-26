@@ -2,14 +2,18 @@ const path = require('path');
 
 const express = require('express');
 
-const loginRoutes = require('../controllers/auth');
+const authRoutes = require('../controllers/auth');
 
 const router = express.Router();
 
-router.get('/login', loginRoutes.getLogin);
+router.get('/login', authRoutes.getLogin);
 
-router.post('/login', loginRoutes.postLogin);
+router.post('/login', authRoutes.postLogin);
 
-router.post('/logout', loginRoutes.postLogout);
+router.post('/logout', authRoutes.postLogout);
+
+router.get('/signup', authRoutes.getSignUp);
+
+router.post('/signup', authRoutes.postSignup);
 
 module.exports = router;
