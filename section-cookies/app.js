@@ -48,7 +48,6 @@ app.use(errorController.get404);
 
 mongoose
   .connect(MONGODB_URI)
-
   .then((result) => {
     console.log('connected!');
     app.listen(3000);
